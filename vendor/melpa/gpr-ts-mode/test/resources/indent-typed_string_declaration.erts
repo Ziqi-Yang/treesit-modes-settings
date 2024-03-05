@@ -1,0 +1,108 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (indent-region (point-min) (point-max)))
+
+Name: Nominal
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+end Colors;
+=-=-=
+
+Name: List on separate line
+
+=-=
+abstract project Colors is
+   type Value_Type is
+     ("Red", "Green", "Blue");
+end Colors;
+=-=-=
+
+Name: Stacked items
+
+=-=
+abstract project Colors is
+   type Value_Type is
+     ("Red",
+      "Green",
+      "Blue");
+end Colors;
+=-=-=
+
+Name: Stacked with space
+
+=-=
+abstract project Colors is
+   type Value_Type is
+     ( "Red",
+       "Green",
+       "Blue");
+end Colors;
+=-=-=
+
+Name: Closing parenthesis on separate line
+
+=-=
+abstract project Colors is
+   type Value_Type is
+     ( "Red",
+       "Green",
+       "Blue"
+     );
+end Colors;
+=-=-=
+
+Name: Stacked items with comment
+
+=-=
+abstract project Colors is
+   type Value_Type is
+     ( "Red",
+       -- before green
+       "Green",
+       -- before blue
+       "Blue"
+     -- after blue
+     );
+end Colors;
+=-=-=
+
+Name: Broken indent
+
+=-=
+abstract project Colors is
+   type
+     Value_Type
+   is
+     ( "Red",
+       "Green",
+       "Blue"
+     );
+end Colors;
+=-=-=
+
+Name: Opening parenthesis on first line
+
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red",
+                        "Green",
+                        "Blue"
+                      );
+end Colors;
+=-=-=
+
+Name: Broken indent partial
+
+=-=
+abstract project Colors is
+   type
+     Value_Type is ( "Red",
+                     "Green",
+                     "Blue"
+                   );
+end Colors;
+=-=-=

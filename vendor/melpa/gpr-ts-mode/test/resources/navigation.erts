@@ -1,0 +1,325 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (call-interactively (key-binding (kbd "C-M-a"))))
+
+Name: Project Beginning
+
+Point-Char: |
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");|
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=
+with "a.gpr";
+
+|project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (call-interactively (key-binding (kbd "C-M-e"))))
+
+Name: Project End
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+|
+end Hello_World;
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+
+end Hello_World;
+|
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (call-interactively (key-binding (kbd "C-M-a"))))
+
+Name: Package Beginning
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");|
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+|   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (call-interactively (key-binding (kbd "C-M-e"))))
+
+Name: Package End
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");|
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+|
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (let ((current-prefix-arg 2))
+      (call-interactively (key-binding (kbd "C-M-e")))))
+
+Name: Next Next Package End
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+|
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+|
+end Hello_World;
+
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (call-interactively (key-binding (kbd "C-M-a"))))
+
+Name: Previous Package Start
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+|
+end Hello_World;
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+|   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (let ((current-prefix-arg 2))
+      (call-interactively (key-binding (kbd "C-M-a")))))
+
+Name: Previous Previous Package Start
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+|   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+|   package Compiler extends A.Compiler is
+      for Default_Switches ("Ada") use Compiler'Default_Switches ("Ada") & ("-g");
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-E");
+   end Binder;
+
+   package Naming renames A.Naming;
+
+end Hello_World;
+
+=-=-=

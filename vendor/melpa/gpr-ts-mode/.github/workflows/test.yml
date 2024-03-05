@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        emacs_version:
+          - 29.1
+          - release-snapshot
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Tree-Sitter Library
+        run: |
+          sudo apt update
+          sudo apt --assume-yes install libtree-sitter-dev
+
+      - name: Setup Emacs
+        uses: purcell/setup-emacs@master
+        with:
+          version: ${{matrix.emacs_version}}
+
+      - name: Install Eldev
+        uses: emacs-eldev/setup-eldev@v1
+
+      - name: Test the project
+        run: |
+          sudo apt --assume-yes install texinfo
+          eldev -p -dtT test
+          eldev -dtT compile --warnings-as-errors
+          eldev -dtT lint

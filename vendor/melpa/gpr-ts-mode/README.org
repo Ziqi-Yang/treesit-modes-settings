@@ -1,0 +1,318 @@
+#+TITLE: GNAT Project Major Mode using Tree-Sitter
+#+AUTHOR: Troy Brown
+#+LANGUAGE: en
+#+OPTIONS: toc:nil ':t
+#+EXPORT_FILE_NAME: doc/gpr-ts-mode.texi
+#+TEXINFO_DIR_CATEGORY: Emacs
+#+TEXINFO_DIR_TITLE: GPR Tree-Sitter Mode: (gpr-ts-mode)
+#+TEXINFO_DIR_DESC: GNAT Project Major Mode using Tree-Sitter
+
+#+HTML: <a href="https://melpa.org/#/gpr-ts-mode"><img alt="MELPA" src="https://melpa.org/packages/gpr-ts-mode-badge.svg"/></a>
+#+HTML: <a href="https://github.com/brownts/gpr-ts-mode/actions/workflows/test.yml"><img alt="CI" src="https://github.com/brownts/gpr-ts-mode/actions/workflows/test.yml/badge.svg"/></a>
+
+A major mode for GNAT Project (GPR) files, which utilizes the Emacs
+built-in support for tree-sitter, first available starting with
+Emacs 29.  The tree-sitter functionality is used to build an in-memory
+concrete syntax tree of the parsed language, allowing operations such
+as syntax highlighting to be performed more accurately than historical
+methods (e.g., regular expressions).
+
+This major mode provides support for syntax highlighting, indentation,
+navigation, Imenu, and "which function" (i.e., displaying the current
+function name in the mode line).
+
+*Note*: This major mode is based on the Emacs built-in tree-sitter
+support, not to be confused with the separate Emacs tree-sitter
+package.  The two are not compatible with each other.
+
+* Prerequisites
+
+There are a number of requirements which must be met in order to use
+tree-sitter powered major modes.  The Emacs documentation should be
+consulted which will provide complete details.  The following are the
+main points to consider:
+
+- Emacs must have been built with tree-sitter support.  Versions of
+  Emacs prior to Emacs 29 do not have built-in support.  The built-in
+  support is optionally enabled when Emacs is built, so you must make
+  sure that the version of Emacs that you are using was built with
+  tree-sitter support.
+- The tree-sitter shared library must be installed on your system.
+  The specifics of how to do this will vary based on the Operating
+  System, so those details are not provided here for all platforms,
+  however an a Debian/Ubuntu installation, it would be similar to the
+  following:
+  #+BEGIN_SRC shell
+    sudo apt install libtree-sitter0
+  #+END_SRC
+  If you're building Emacs from source, you'll need the development
+  library instead:
+  #+BEGIN_SRC shell
+    sudo apt install libtree-sitter-dev
+  #+END_SRC
+  The following command can be used to determine if tree-sitter
+  support is enabled in Emacs and whether the tree-sitter library can
+  be found on your system:
+  - =M-: (treesit-available-p) RET=
+
+* Installation
+
+There are multiple ways in which a package can be installed in Emacs.
+The most convenient way is to use a package archive, however
+installation directly from the git repository is also possible.  In
+addition, there are multiple third party package managers available,
+but installation instructions in this section will focus only on the
+built-in package manager (i.e., =package.el=).  It is assumed that
+power-users will not need direction as to how to use other package
+managers.
+
+In addition to package management, it is also common practice to
+perform package configuration.  There are also multiple third party
+packages for managing your package configuration, however =use-package=
+is now built-in to Emacs.  Refer to the example configuration section
+for ideas on how to utilize =use-package= to setup your own personal
+configuration.
+
+** From the MELPA Package Archive
+
+This package can be installed from the MELPA package archive using the
+Emacs built-in package manager (i.e., =package.el=).  MELPA is not
+configured in the package manager by default, but the following can be
+used to configure the use of the MELPA archive.  Refer to [[https://melpa.org/#/getting-started][Getting
+Started]] for additional details on configuring and using the MELPA
+package archive.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+#+END_SRC
+
+Once configured as above, instruct the package manager to refresh the
+available packages and to perform the installation, as follows:
+
+- =M-x package-refresh-contents RET=
+- =M-x package-install RET gpr-ts-mode RET=
+
+** From the Git Repository
+
+Installation directly from the source repository is possible using
+~package-vc-install~.  The following command can be used to perform this
+installation:
+
+=M-x package-vc-install RET https://github.com/brownts/gpr-ts-mode RET=
+
+* Grammar Installation
+
+In order for gpr-ts-mode to be useful, it needs to have the specific
+tree-sitter GPR language grammar library installed.  This library is
+different from the tree-sitter library mentioned in the prerequisites
+section (e.g., =libtree-sitter.so= vs =libtree-sitter-gpr.so=).  The
+library is not bundled with gpr-ts-mode, but is maintained separately.
+With the default configuration, the first time gpr-ts-mode is loaded
+(in the absence of an existing installed library) it will prompt to
+download, build and install the grammar library.  The following
+settings provide control over this activity.
+
+- User Option: gpr-ts-mode-grammar ::
+  Location of the tree-sitter GPR language grammar to be used by
+  gpr-ts-mode.
+
+- User Option: gpr-ts-mode-grammar-install ::
+  Controls the level of automation in installing the grammar library
+  (automatic, prompt first, etc).
+
+In order to build the library, you will need to have a C compiler
+installed.  Refer to the Emacs documentation surrounding
+~treesit-install-language-grammar~, as gpr-ts-mode uses the built-in
+Emacs functionality to perform the download, building and installation
+of the library.
+
+It's also possible to skip this step if you already have a pre-built
+library for the language.  In which case, placing the pre-built
+library in the correct location will allow gpr-ts-mode to find and use
+the library.  You can customize ~treesit-extra-load-path~ to add extra
+locations to search for libraries.
+
+The [[https://github.com/brownts/tree-sitter-gpr#readme][README]] for the GPR language grammar, provides instructions on
+building the library from source if you'd rather perform that step
+manually or don't have the correct toolchain installed in order for
+this to be performed automatically.  You will only be prompted if the
+library can't be found in one of the expected locations.  The
+prompting can also be controlled by changing the
+~gpr-ts-mode-grammar-install~ setting.
+
+If manually installing, or troubleshooting the installation of the GPR
+language grammar, you can use the following to check whether Emacs can
+locate the library:
+- =M-: (treesit-ready-p 'gpr t) RET=
+- Make sure it indicates ~t~ in the echo area instead of ~nil~.
+
+* Syntax Highlighting
+
+There are 4 different levels of syntax highlighting available,
+providing an increasing amount of highlighting.  By default in Emacs,
+level 3 (controlled by ~treesit-font-lock-level~) is used to provide a
+compromise between providing too little and too much fontification.
+It should be noted that the levels are cumulative, meaning that each
+level also includes all of the fontification in the levels below it.
+The following provides the list of features and how they are mapped to
+the different font lock levels.
+
+- Level 1 :: comment, definition
+- Level 2 :: keyword, string, type
+- Level 3 :: attribute, function, number, operator, package, variable
+- Level 4 :: bracket, delimiter, error
+
+* Indentation
+
+Indentation follows the nesting structure of the language.  Each
+nested level is indented a fixed amount.  Thus the general indentation
+offset governs the amount of this indentation.  Additional
+configurations address special cases, such as the indentation of a
+construct spanning multiple lines (i.e., broken indent).  The
+following configurations can be used to customize these indentation
+levels to match your own style.
+
+- User Option: gpr-ts-mode-indent-offset ::
+  Indentation used for structural visualization
+
+- User Option: gpr-ts-mode-indent-when-offset ::
+  Indentation for case items and comments, relative to a case
+  construction.
+
+- User Option: gpr-ts-mode-indent-broken-offset ::
+  Continuation indentation when item does not completely reside on a
+  single line.
+
+- User Option: gpr-ts-mode-indent-exp-item-offset ::
+  Continuation indentation for partial expressions (i.e., terms,
+  concatenation, etc).
+
+It should be noted that the settings above are defined in terms of
+each other, so that by customizing the standard indentation offset
+~gpr-ts-mode-indent-offset~, the other indentation offsets will be
+adjusted accordingly.  In other words, those settings either use the
+same value or a value derived from it.  Therefore, customizing the
+base value will have an affect on the remaining values as well.  If
+this is not the desired outcome, the other offsets should be
+customized as well.
+
+Stacking of a list of items on subsequent lines is supported and the
+indentation will align stacked items under each other.  This applies
+to lists, function call parameters, import lists, discrete choice
+lists in case constructions, etc.
+
+Indentation rules used in gpr-ts-mode (as in all tree-sitter based
+modes) are based on the syntax of the language.  When what currently
+exists in the buffer is not syntactically correct, the in-memory
+syntax tree will contain errors, since the buffer doesn't adhere to
+the grammar rules of the language (i.e., it contains syntax errors).
+Due to these errors, the indentation may not be applied correctly as
+the in-memory syntax tree may not accurately reflect the language
+(i.e., the tree will contain an ~ERROR~ node instead of a language
+specific node) and indentation rules may not be applied when they
+should, due to these errors.
+
+To help combat this issue, it is suggested to use functionality that
+can help to reduce the number of syntax errors that might exist in the
+buffer at a particular point in time.  Functionality such as enabling
+=electric-pair-mode= to insert matching parenthesis, quotation marks,
+etc. or using snippets (e.g., [[https://github.com/brownts/gpr-yasnippets][gpr-yasnippets]]) to automatically insert
+multi-line control constructs (e.g., project declarations, package
+declarations, case statements, etc.) are highly recommended.  Not only
+can this help keep your buffer closer to a syntactically correct
+state, you also benefit from the productivity gains as well.
+
+* Navigation / Imenu
+
+The following specialized navigation functions exist and are applied
+to GPR projects.  Since function declarations don't exist for GPR
+project files, this is repurposed to navigate packages and projects
+instead.  This repurposing of function to project/package is also
+extended to =which-function-mode= support and will show the current
+project and package in the mode line, when enabled.
+
+- Key: C-M-a (treesit-beginning-of-defun) ::
+  Move backward to beginning of package or project
+
+- Key: C-M-e (treesit-end-of-defun) ::
+  Move forward to next end of package or project
+
+With the provided Imenu support, additional options are available for
+ease of navigation within a single GPR file.  Packages, projects, type
+declarations and typed variable declarations are enumerated.
+
+* Troubleshooting
+
+** Org Mode Source Code Blocks
+
+When Org Mode doesn't know the major mode for the language of a source
+block, it will guess by appending "-mode" to the end of the language
+name.  If we use a language name of "gpr", this means it will look for
+a major mode named "gpr-mode".  This default behavior doesn't work if
+we want to use Tree-Sitter enabled modes.  Maybe in the future it will
+be aware of these modes, but in the meantime, we can explicitly
+configure Org Mode to map to the Tree-Sitter major mode using the
+customization variable =org-src-lang-modes=.
+
+The following can be added to your configuration to persist the
+setting:
+
+#+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org-src
+    (add-to-list 'org-src-lang-modes '("gpr" . gpr-ts)))
+#+END_SRC
+
+* Example Configuration
+
+The following is an example configuration using =use-package= to manage
+this configuration.  It assumes that =package.el= is your package
+manager.  This checks to make sure tree-sitter support is enabled in
+Emacs before attempting to install/configure the package, thus your
+configuration will remain compatible with versions of Emacs which
+don't yet support tree-sitter, and will not install and configure this
+package in its absence.  Additionally, this also includes installation
+and configuration of recommended supporting packages and modes.
+
+#+BEGIN_SRC emacs-lisp
+  (when (and (fboundp 'treesit-available-p)
+             (treesit-available-p))
+    (use-package gpr-ts-mode
+      :ensure t
+      :defer t ; autoload updates `auto-mode-alist'
+      :init
+      ;; Configure source blocks for Org Mode.
+      (with-eval-after-load 'org-src
+        (add-to-list 'org-src-lang-modes '("gpr" . gpr-ts)))))
+
+  ;; Configure Electric Pair
+
+  (use-package elec-pair
+    :ensure nil ; built-in
+    :hook (gpr-ts-mode . electric-pair-local-mode))
+
+  ;; Configure snippets
+
+  (use-package gpr-yasnippets
+    :ensure t
+    :defer t) ; autoload hooks into yasnippet
+
+  (use-package yasnippet
+    :ensure t
+    :hook (gpr-ts-mode . yas-minor-mode-on))
+#+END_SRC
+
+* Keystroke Index
+:PROPERTIES:
+:APPENDIX: t
+:INDEX: ky
+:END:
+
+* Variable Index
+:PROPERTIES:
+:APPENDIX: t
+:INDEX: vr
+:END:
+
+# Local Variables:
+# eval: (add-hook 'after-save-hook #'org-texinfo-export-to-info nil t)
+# End:

@@ -1,0 +1,152 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (indent-region (point-min) (point-max)))
+
+Name: Single Line
+
+=-=
+abstract project Shared is
+   App := "hello_world.adb";
+   App_Fully_Qualified := Project'Project_Dir & "src/" & App;
+end Shared;
+=-=-=
+
+Name: Single Line (Reindent)
+
+=-=
+ abstract project Shared is
+App := "hello_world.adb";
+App_Fully_Qualified := Project'Project_Dir & "src/" & App;
+ end Shared;
+=-=
+abstract project Shared is
+   App := "hello_world.adb";
+   App_Fully_Qualified := Project'Project_Dir & "src/" & App;
+end Shared;
+=-=-=
+
+Name: Broken Line
+
+=-=
+abstract project Shared is
+   App :=
+     -- a comment
+     "hello_world.adb";
+   App_Fully_Qualified :=
+     -- a comment
+     Project'Project_Dir & "src/" & App;
+end Shared;
+=-=-=
+
+Name: Broken Line (Reindent)
+
+=-=
+ abstract project Shared is
+App :=
+-- a comment
+"hello_world.adb";
+App_Fully_Qualified :=
+-- a comment
+Project'Project_Dir & "src/" & App;
+ end Shared;
+=-=
+abstract project Shared is
+   App :=
+     -- a comment
+     "hello_world.adb";
+   App_Fully_Qualified :=
+     -- a comment
+     Project'Project_Dir & "src/" & App;
+end Shared;
+=-=-=
+
+Name: Broken Expression (default expression item offset)
+
+=-=
+abstract project Shared is
+   App :=
+     -- a comment
+     "hello_world.adb";
+   App_Fully_Qualified :=
+     Project'Project_Dir
+       -- a comment
+       & "src/"
+       & App;
+end Shared;
+=-=-=
+
+Name: Broken Expression (default expression item offset, Reindent)
+
+=-=
+ abstract project Shared is
+App :=
+-- a comment
+"hello_world.adb";
+App_Fully_Qualified :=
+Project'Project_Dir
+-- a comment
+& "src/"
+& App;
+ end Shared;
+=-=
+abstract project Shared is
+   App :=
+     -- a comment
+     "hello_world.adb";
+   App_Fully_Qualified :=
+     Project'Project_Dir
+       -- a comment
+       & "src/"
+       & App;
+end Shared;
+=-=-=
+
+Name: Broken Expression (modified expression item offset)
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (setq-local gpr-ts-mode-indent-exp-item-offset 0)
+    (indent-region (point-min) (point-max)))
+
+=-=
+abstract project Shared is
+   App :=
+     -- a comment
+     "hello_world.adb";
+   App_Fully_Qualified :=
+     Project'Project_Dir
+     -- a comment
+     & "src/"
+     & App;
+end Shared;
+=-=-=
+
+Name: Broken Expression (modified expression item offset, Reindent)
+
+=-=
+ abstract project Shared is
+App :=
+-- a comment
+"hello_world.adb";
+App_Fully_Qualified :=
+Project'Project_Dir
+-- a comment
+& "src/"
+& App;
+ end Shared;
+=-=
+abstract project Shared is
+   App :=
+     -- a comment
+     "hello_world.adb";
+   App_Fully_Qualified :=
+     Project'Project_Dir
+     -- a comment
+     & "src/"
+     & App;
+end Shared;
+=-=-=

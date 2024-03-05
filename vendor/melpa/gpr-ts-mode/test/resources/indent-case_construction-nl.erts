@@ -1,0 +1,358 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (call-interactively 'newline)
+    (indent-region (point-min) (point-max)))
+
+Name: Before first case item (case line)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is|
+      when "Red" =>
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      |
+      when "Red" =>
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Before first case item (before comment line)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is|
+      -- Shift colors
+      when "Red" =>
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      |
+      -- Shift colors
+      when "Red" =>
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Before first case item (after comment line)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors|
+      when "Red" =>
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      |
+      when "Red" =>
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Case item (before comment line)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>|
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         |
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Case item (after comment line)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green|
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         |
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Case item (after last declaration)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";|
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+         |
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Last Case item (after last declaration)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";|
+   end case;
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+         |
+   end case;
+end Colors;
+=-=-=
+
+Name: Case Construction (after end case)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;|
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value := "Red";
+   Shift : Value := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+   |
+end Colors;
+=-=-=

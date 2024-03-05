@@ -1,0 +1,353 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (call-interactively 'newline)
+    (indent-region (point-min) (point-max)))
+
+Name: Before first item in list
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is (|"Red", "Green", "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is (
+                       |"Red", "Green", "Blue");
+end Colors;
+=-=-=
+
+Name: Before first item in list (leading space)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ( |"Red", "Green", "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is (
+                       |"Red", "Green", "Blue");
+end Colors;
+=-=-=
+
+Name: After second item in list
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green",| "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green",
+                       |"Blue");
+end Colors;
+=-=-=
+
+Name: After second item in list (leading space)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red", "Green",| "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red", "Green",
+                        |"Blue");
+end Colors;
+=-=-=
+
+Name: Before comma
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green"|, "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green"
+                       |, "Blue");
+end Colors;
+=-=-=
+
+Name: Before comma (leading space)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red", "Green"|, "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red", "Green"
+                        |, "Blue");
+end Colors;
+=-=-=
+
+Name: After last item in list
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue"|);
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue"
+                      |);
+end Colors;
+=-=-=
+
+Name: Before stacked list items
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is (|"Red",
+                       "Green",
+                       "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is (
+                       |"Red",
+                       "Green",
+                       "Blue");
+end Colors;
+=-=-=
+
+Name: Before stacked list items (leading space)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ( |"Red",
+                        "Green",
+                        "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is (
+                       |"Red",
+                       "Green",
+                       "Blue");
+end Colors;
+=-=-=
+
+Name: After stacked list item
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red",
+                       "Green",|
+                       "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red",
+                       "Green",
+                       |
+                       "Blue");
+end Colors;
+=-=-=
+
+Name: After stacked list item (leading space)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red",
+                        "Green",|
+                        "Blue");
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red",
+                        "Green",
+                        |
+                        "Blue");
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Empty list
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is (|);
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is (
+                      |);
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Missing last item
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green",|);
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green",
+                      |);
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Missing last item (move list to next line)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is |("Red", "Green",);
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is
+     |("Red", "Green",);
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Missing last item (stacked)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red",
+                       "Green",|
+                      );
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red",
+                       "Green",
+                       |
+                      );
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Missing last item (stacked, leading space)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red",
+                        "Green",|
+                      );
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red",
+                        "Green",
+                        |
+                      );
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Empty list, missing semicolon
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is (|)
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is (
+                      |)
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Missing last item, semicolon
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green",|)
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green",
+                      |)
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Missing last item, semicolon (move list to next line)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is |("Red", "Green",)
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is
+     |("Red", "Green",)
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Missing last item, semicolon (stacked)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red",
+                       "Green",|
+                      )
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red",
+                       "Green",
+                      |
+                      )
+end Colors;
+=-=-=
+
+Name: Invalid Syntax: Missing last item, semicolon (stacked, leading space)
+
+Point-Char: |
+
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red",
+                        "Green",|
+                      )
+end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ( "Red",
+                        "Green",
+                      |
+                      )
+end Colors;
+=-=-=

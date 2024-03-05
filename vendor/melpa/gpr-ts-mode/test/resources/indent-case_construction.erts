@@ -1,0 +1,438 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (indent-region (point-min) (point-max)))
+
+Name: Nominal
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Nominal (Reindent)
+
+=-=
+ abstract project Colors is
+type Value_Type is ("Red", "Green", "Blue");
+X : Value_Type := "Red";
+Shift : Value_Type := "Green";
+
+case X is
+-- Shift colors
+when "Red" =>
+-- Shift to green
+Shift := "Green";
+when "Green" =>
+-- Shift to blue
+Shift := "Blue";
+when "Blue" =>
+-- Shift to red
+Shift := "Red";
+end case;
+ end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (setq-local gpr-ts-mode-indent-offset 8)
+    (setq-local gpr-ts-mode-indent-when-offset 3)
+    (indent-region (point-min) (point-max)))
+
+Name: Modified indent offset
+
+=-=
+abstract project Colors is
+        type Value_Type is ("Red", "Green", "Blue");
+        X : Value_Type := "Red";
+        Shift : Value_Type := "Green";
+
+        case X is
+           -- Shift colors
+           when "Red" =>
+                   -- Shift to green
+                   Shift := "Green";
+           when "Green" =>
+                   -- Shift to blue
+                   Shift := "Blue";
+           when "Blue" =>
+                   -- Shift to red
+                   Shift := "Red";
+        end case;
+end Colors;
+=-=-=
+
+Name: Modified indent offset (Reindent)
+
+=-=
+ abstract project Colors is
+type Value_Type is ("Red", "Green", "Blue");
+X : Value_Type := "Red";
+Shift : Value_Type := "Green";
+
+case X is
+-- Shift colors
+when "Red" =>
+-- Shift to green
+Shift := "Green";
+when "Green" =>
+-- Shift to blue
+Shift := "Blue";
+when "Blue" =>
+-- Shift to red
+Shift := "Red";
+end case;
+ end Colors;
+=-=
+abstract project Colors is
+        type Value_Type is ("Red", "Green", "Blue");
+        X : Value_Type := "Red";
+        Shift : Value_Type := "Green";
+
+        case X is
+           -- Shift colors
+           when "Red" =>
+                   -- Shift to green
+                   Shift := "Green";
+           when "Green" =>
+                   -- Shift to blue
+                   Shift := "Blue";
+           when "Blue" =>
+                   -- Shift to red
+                   Shift := "Red";
+        end case;
+end Colors;
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (setq-local gpr-ts-mode-indent-when-offset 0)
+    (indent-region (point-min) (point-max)))
+
+Name: Modified "when" indent offset
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case X is
+   -- Shift colors
+   when "Red" =>
+      -- Shift to green
+      Shift := "Green";
+   when "Green" =>
+      -- Shift to blue
+      Shift := "Blue";
+   when "Blue" =>
+      -- Shift to red
+      Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Modified "when" indent offset (Reindent)
+
+=-=
+ abstract project Colors is
+type Value_Type is ("Red", "Green", "Blue");
+X : Value_Type := "Red";
+Shift : Value_Type := "Green";
+
+case X is
+-- Shift colors
+when "Red" =>
+-- Shift to green
+Shift := "Green";
+when "Green" =>
+-- Shift to blue
+Shift := "Blue";
+when "Blue" =>
+-- Shift to red
+Shift := "Red";
+end case;
+ end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case X is
+   -- Shift colors
+   when "Red" =>
+      -- Shift to green
+      Shift := "Green";
+   when "Green" =>
+      -- Shift to blue
+      Shift := "Blue";
+   when "Blue" =>
+      -- Shift to red
+      Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (indent-region (point-min) (point-max)))
+
+Name: Nominal "broken" indent offset
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case
+     X
+   is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Nominal "broken" indent offset (Reindent)
+
+=-=
+ abstract project Colors is
+type Value_Type is ("Red", "Green", "Blue");
+X : Value_Type := "Red";
+Shift : Value_Type := "Green";
+
+case
+X
+is
+-- Shift colors
+when "Red" =>
+-- Shift to green
+Shift := "Green";
+when "Green" =>
+-- Shift to blue
+Shift := "Blue";
+when "Blue" =>
+-- Shift to red
+Shift := "Red";
+end case;
+ end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case
+     X
+   is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (setq-local gpr-ts-mode-indent-broken-offset 8)
+    (indent-region (point-min) (point-max)))
+
+Name: Modified "broken" indent offset
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case
+           X
+   is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Modified "broken" indent offset (Reindent)
+
+=-=
+ abstract project Colors is
+type Value_Type is ("Red", "Green", "Blue");
+X : Value_Type := "Red";
+Shift : Value_Type := "Green";
+
+case
+X
+is
+-- Shift colors
+when "Red" =>
+-- Shift to green
+Shift := "Green";
+when "Green" =>
+-- Shift to blue
+Shift := "Blue";
+when "Blue" =>
+-- Shift to red
+Shift := "Red";
+end case;
+ end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case
+           X
+   is
+      -- Shift colors
+      when "Red" =>
+         -- Shift to green
+         Shift := "Green";
+      when "Green" =>
+         -- Shift to blue
+         Shift := "Blue";
+      when "Blue" =>
+         -- Shift to red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (indent-region (point-min) (point-max)))
+
+Name: Stacked discrete_choice_list
+
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red"   |
+           "Green" |
+           "Blue"  =>
+         -- Use blue
+         Shift := "Blue";
+      when others =>
+         -- Use red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=
+
+Name: Stacked discrete_choice_list (Reindent)
+
+=-=
+ abstract project Colors is
+type Value_Type is ("Red", "Green", "Blue");
+X : Value_Type := "Red";
+Shift : Value_Type := "Green";
+
+case X is
+-- Shift colors
+when "Red"   |
+"Green" |
+"Blue"  =>
+-- Use blue
+Shift := "Blue";
+when others =>
+-- Use red
+Shift := "Red";
+end case;
+ end Colors;
+=-=
+abstract project Colors is
+   type Value_Type is ("Red", "Green", "Blue");
+   X : Value_Type := "Red";
+   Shift : Value_Type := "Green";
+
+   case X is
+      -- Shift colors
+      when "Red"   |
+           "Green" |
+           "Blue"  =>
+         -- Use blue
+         Shift := "Blue";
+      when others =>
+         -- Use red
+         Shift := "Red";
+   end case;
+end Colors;
+=-=-=

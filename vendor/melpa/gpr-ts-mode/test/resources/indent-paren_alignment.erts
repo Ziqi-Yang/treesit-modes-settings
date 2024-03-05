@@ -1,0 +1,268 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (indent-region (point-min) (point-max)))
+
+Name: attribute_declaration (Indexed)
+
+=-=
+project Hello_World is
+   package Naming is
+      for Body ("hello_world"
+               ) use "hello_world.ada";
+   end Naming;
+end Hello_World;
+=-=-=
+
+Name: attribute_declaration (Indexed, Reindent)
+
+=-=
+project Hello_World is
+   package Naming is
+for Body ("hello_world"
+) use "hello_world.ada";
+   end Naming;
+end Hello_World;
+=-=
+project Hello_World is
+   package Naming is
+      for Body ("hello_world"
+               ) use "hello_world.ada";
+   end Naming;
+end Hello_World;
+=-=-=
+
+Name: attribute_declaration (Indexed, Broken)
+
+=-=
+project Hello_World is
+   package Naming is
+      for Body
+            ("hello_world"
+            ) use "hello_world.ada";
+   end Naming;
+end Hello_World;
+=-=-=
+
+Name: attribute_declaration (Indexed, Broken, Reindent)
+
+=-=
+project Hello_World is
+   package Naming is
+for Body
+("hello_world"
+) use "hello_world.ada";
+   end Naming;
+end Hello_World;
+=-=
+project Hello_World is
+   package Naming is
+      for Body
+            ("hello_world"
+            ) use "hello_world.ada";
+   end Naming;
+end Hello_World;
+=-=-=
+
+
+Name: attribute_reference
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   package Compiler is
+      for Switches ("hello_world.ada") use
+        A.Compiler'Default_Switches ("Ada"
+                                    ) & "-g";
+   end Compiler;
+end Hello_World;
+=-=-=
+
+Name: attribute_reference (Reindent)
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   package Compiler is
+      for Switches ("hello_world.ada") use
+A.Compiler'Default_Switches ("Ada"
+) & "-g";
+   end Compiler;
+end Hello_World;
+=-=
+with "a.gpr";
+
+project Hello_World is
+   package Compiler is
+      for Switches ("hello_world.ada") use
+        A.Compiler'Default_Switches ("Ada"
+                                    ) & "-g";
+   end Compiler;
+end Hello_World;
+=-=-=
+
+Name: attribute_reference (Broken)
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   package Compiler is
+      for Switches ("hello_world.ada") use
+        A.Compiler'Default_Switches
+                     ("Ada"
+                     ) & "-g";
+   end Compiler;
+end Hello_World;
+=-=-=
+
+Name: attribute_reference (Broken, Reindent)
+
+=-=
+with "a.gpr";
+
+project Hello_World is
+   package Compiler is
+      for Switches ("hello_world.ada") use
+A.Compiler'Default_Switches
+("Ada"
+) & "-g";
+   end Compiler;
+end Hello_World;
+=-=
+with "a.gpr";
+
+project Hello_World is
+   package Compiler is
+      for Switches ("hello_world.ada") use
+        A.Compiler'Default_Switches
+                     ("Ada"
+                     ) & "-g";
+   end Compiler;
+end Hello_World;
+=-=-=
+
+Name: expression_list
+
+=-=
+abstract project Shared is
+   My_Switches := ("-gnata",
+                   "-O0"
+                   "-g"
+                  );
+end Shared;
+=-=-=
+
+Name: expression_list (Reindent)
+
+=-=
+abstract project Shared is
+My_Switches := ("-gnata",
+"-O0"
+"-g"
+);
+end Shared;
+=-=
+abstract project Shared is
+   My_Switches := ("-gnata",
+                   "-O0"
+                   "-g"
+                  );
+end Shared;
+=-=-=
+
+Name: expression_list (Broken)
+
+=-=
+abstract project Shared is
+   My_Switches :=
+     ("-gnata",
+      "-O0"
+      "-g"
+     );
+end Shared;
+=-=-=
+
+Name: expression_list (Broken, Reindent)
+
+=-=
+abstract project Shared is
+My_Switches :=
+("-gnata",
+"-O0"
+"-g"
+);
+end Shared;
+=-=
+abstract project Shared is
+   My_Switches :=
+     ("-gnata",
+      "-O0"
+      "-g"
+     );
+end Shared;
+=-=-=
+
+Name: typed_string_declaration
+
+=-=
+abstract project Shared is
+   type Colors_Type is ("Red",
+                        "Green",
+                        "Blue"
+                       );
+end Shared;
+=-=-=
+
+Name: typed_string_declaration (Reindent)
+
+=-=
+abstract project Shared is
+type Colors_Type is ("Red",
+"Green",
+"Blue"
+);
+end Shared;
+=-=
+abstract project Shared is
+   type Colors_Type is ("Red",
+                        "Green",
+                        "Blue"
+                       );
+end Shared;
+=-=-=
+
+Name: typed_string_declaration (Broken)
+
+=-=
+abstract project Shared is
+   type Colors_Type is
+     ("Red",
+      "Green",
+      "Blue"
+     );
+end Shared;
+=-=-=
+
+Name: typed_string_declaration (Broken, Reindent)
+
+=-=
+abstract project Shared is
+type Colors_Type is
+("Red",
+"Green",
+"Blue"
+);
+end Shared;
+=-=
+abstract project Shared is
+   type Colors_Type is
+     ("Red",
+      "Green",
+      "Blue"
+     );
+end Shared;
+=-=-=

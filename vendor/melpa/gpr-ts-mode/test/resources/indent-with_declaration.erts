@@ -1,0 +1,236 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (setq-local gpr-ts-mode-indent-broken-offset 2)
+    (indent-region (point-min) (point-max)))
+
+Name: Hanging Import List 1a
+
+=-=
+with
+  "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (setq-local gpr-ts-mode-indent-broken-offset 3)
+    (indent-region (point-min) (point-max)))
+
+Name: Hanging Import List 1b
+
+=-=
+limited with
+   "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (setq-local gpr-ts-mode-indent-broken-offset 2)
+    (indent-region (point-min) (point-max)))
+
+Name: Hanging Import List 2a
+
+=-=
+with
+  -- import a
+  "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 2b
+
+=-=
+limited with
+  -- import a
+  "a.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 3a
+
+=-=
+with
+  "a.gpr"; -- import a
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 3b
+
+=-=
+limited with
+  "a.gpr"; -- import a
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 4a
+
+=-=
+with "a.gpr", -- import a
+     "b.gpr"; -- import b
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 4b
+
+=-=
+limited with "a.gpr", -- import a
+             "b.gpr"; -- import b
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 5a
+
+=-=
+with "a.gpr", "b.gpr", -- import a, b
+     "c.gpr", "d.gpr"; -- import c, d
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 5b
+
+=-=
+limited with "a.gpr", "b.gpr", -- import a, b
+             "c.gpr", "d.gpr"; -- import c, d
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 6a
+
+=-=
+with
+  -- import a
+  "a.gpr",
+  -- import b
+  "b.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 6b
+
+=-=
+limited with
+  -- import a
+  "a.gpr",
+  -- import b
+  "b.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 7a
+
+=-=
+with
+  "a.gpr", -- import a
+  "b.gpr"; -- import b
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 7b
+
+=-=
+limited with
+  "a.gpr", -- import a
+  "b.gpr"; -- import b
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 8a
+
+=-=
+with
+  "a.gpr", "b.gpr", -- import a, b
+  "c.gpr", "d.gpr"; -- import c, d
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 8b
+
+=-=
+limited with
+  "a.gpr", "b.gpr", -- import a, b
+  "c.gpr", "d.gpr"; -- import c, d
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 9a
+
+=-=
+with
+  -- import a, b
+  "a.gpr", "b.gpr",
+  -- import c, d
+  "c.gpr", "d.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=
+
+Name: Hanging Import List 9b
+
+=-=
+limited with
+  -- import a, b
+  "a.gpr", "b.gpr",
+  -- import c, d
+  "c.gpr", "d.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+end Hello_World;
+=-=-=

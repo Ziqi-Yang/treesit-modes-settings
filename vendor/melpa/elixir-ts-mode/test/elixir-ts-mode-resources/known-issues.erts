@@ -1,0 +1,29 @@
+Code:
+  (lambda ()
+    (setq indent-tabs-mode nil)
+    (elixir-ts-mode)
+    (indent-region (point-min) (point-max)))
+
+Point-Char: $
+
+Name: Spec map return type
+
+=-=
+@type something() :: %{
+        one: one(),
+        two: two(),
+        three: two()
+      }
+=-=-=
+
+Name: String concatenation assignment
+
+=-=
+foo =
+  "one" <>
+    "two" <>
+    "three" <>
+    "zar"
+=-=-=
+
+

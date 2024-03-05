@@ -1,0 +1,605 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (indent-region (point-min) (point-max)))
+
+Name: Basic
+
+=-=
+with "shared.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   for Object_Dir use Project'Project_Dir & "obj";
+
+   package Builder renames Shared.Builder;
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-g");
+   end Compiler;
+
+   package Binder extends Shared.Binder is
+      for Default_Switches ("Ada") use Binder'Default_Switches ("Ada") & ("-E");
+   end Binder;
+end Hello_World;
+=-=-=
+
+Name: Basic (Reindent)
+
+=-=
+ with "shared.gpr";
+
+ project Hello_World is
+for Main use ("hello_world.adb");
+
+for Object_Dir use Project'Project_Dir & "obj";
+
+package Builder renames Shared.Builder;
+
+package Compiler is
+for Default_Switches ("Ada") use ("-g");
+end Compiler;
+
+package Binder extends Shared.Binder is
+for Default_Switches ("Ada") use Binder'Default_Switches ("Ada") & ("-E");
+end Binder;
+ end Hello_World;
+=-=
+with "shared.gpr";
+
+project Hello_World is
+   for Main use ("hello_world.adb");
+
+   for Object_Dir use Project'Project_Dir & "obj";
+
+   package Builder renames Shared.Builder;
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-g");
+   end Compiler;
+
+   package Binder extends Shared.Binder is
+      for Default_Switches ("Ada") use Binder'Default_Switches ("Ada") & ("-E");
+   end Binder;
+end Hello_World;
+=-=-=
+
+Name: Basic (Broken)
+
+=-=
+with
+  "shared.gpr";
+
+project
+  Hello_World
+is
+   for
+     Main
+   use
+     (
+      "hello_world.adb"
+     )
+   ;
+
+   for
+     Object_Dir
+   use
+     Project
+     '
+     Project_Dir
+       &
+       "obj"
+   ;
+
+   package
+     Builder
+   renames
+     Shared
+     .
+     Builder
+   ;
+
+   package
+     Compiler
+   is
+      for
+        Default_Switches
+          (
+           "Ada"
+          )
+      use
+        (
+         "-g"
+        )
+      ;
+   end
+     Compiler;
+
+   package
+     Binder
+   extends
+     Shared
+     .
+     Binder
+   is
+      for
+        Default_Switches
+          (
+           "Ada"
+          )
+      use
+        Binder
+        '
+        Default_Switches
+          (
+           "Ada"
+          )
+          &
+          (
+           "-E"
+          )
+      ;
+   end
+     Binder
+   ;
+end
+  Hello_World
+;
+=-=-=
+
+Name: Basic (Broken, Reindent)
+
+=-=
+ with
+"shared.gpr";
+
+ project
+Hello_World
+ is
+for
+Main
+use
+(
+"hello_world.adb"
+)
+;
+
+for
+Object_Dir
+use
+Project
+'
+Project_Dir
+&
+"obj"
+;
+
+package
+Builder
+renames
+Shared
+.
+Builder
+;
+
+package
+Compiler
+is
+for
+Default_Switches
+(
+"Ada"
+)
+use
+(
+"-g"
+)
+;
+end
+Compiler
+;
+
+package
+Binder
+extends
+Shared
+.
+Binder
+is
+for
+Default_Switches
+(
+"Ada"
+)
+use
+Binder
+'
+Default_Switches
+(
+"Ada"
+)
+&
+(
+"-E"
+)
+;
+end
+Binder
+;
+ end
+Hello_World
+ ;
+=-=
+with
+  "shared.gpr";
+
+project
+  Hello_World
+is
+   for
+     Main
+   use
+     (
+      "hello_world.adb"
+     )
+   ;
+
+   for
+     Object_Dir
+   use
+     Project
+     '
+     Project_Dir
+       &
+       "obj"
+   ;
+
+   package
+     Builder
+   renames
+     Shared
+     .
+     Builder
+   ;
+
+   package
+     Compiler
+   is
+      for
+        Default_Switches
+          (
+           "Ada"
+          )
+      use
+        (
+         "-g"
+        )
+      ;
+   end
+     Compiler
+   ;
+
+   package
+     Binder
+   extends
+     Shared
+     .
+     Binder
+   is
+      for
+        Default_Switches
+          (
+           "Ada"
+          )
+      use
+        Binder
+        '
+        Default_Switches
+          (
+           "Ada"
+          )
+          &
+          (
+           "-E"
+          )
+      ;
+   end
+     Binder
+   ;
+end
+  Hello_World
+;
+=-=-=
+
+Name: Extended (Broken)
+
+=-=
+with
+  "shared.gpr";
+
+project
+  Hello_World
+extends
+all
+  "base_hello_world.gpr"
+is
+   for
+     Main
+   use
+     (
+      "hello_world.adb"
+     )
+   ;
+
+   for
+     Object_Dir
+   use
+     Project
+     '
+     Project_Dir
+       &
+       "obj"
+   ;
+
+   package
+     Builder
+   renames
+     Shared
+     .
+     Builder
+   ;
+
+   package
+     Compiler
+   is
+      for
+        Default_Switches
+          (
+           "Ada"
+          )
+      use
+        (
+         "-g"
+        )
+      ;
+   end
+     Compiler;
+
+   package
+     Binder
+   extends
+     Shared
+     .
+     Binder
+   is
+      for
+        Default_Switches
+          (
+           "Ada"
+          )
+      use
+        Binder
+        '
+        Default_Switches
+          (
+           "Ada"
+          )
+          &
+          (
+           "-E"
+          )
+      ;
+   end
+     Binder
+   ;
+end
+  Hello_World
+;
+=-=-=
+
+Name: Extended (Broken, Reindent)
+
+=-=
+ with
+"shared.gpr";
+
+ project
+Hello_World
+ extends
+ all
+"base_hello_world.gpr"
+ is
+for
+Main
+use
+(
+"hello_world.adb"
+)
+;
+
+for
+Object_Dir
+use
+Project
+'
+Project_Dir
+&
+"obj"
+;
+
+package
+Builder
+renames
+Shared
+.
+Builder
+;
+
+package
+Compiler
+is
+for
+Default_Switches
+(
+"Ada"
+)
+use
+(
+"-g"
+)
+;
+end
+Compiler
+;
+
+package
+Binder
+extends
+Shared
+.
+Binder
+is
+for
+Default_Switches
+(
+"Ada"
+)
+use
+Binder
+'
+Default_Switches
+(
+"Ada"
+)
+&
+(
+"-E"
+)
+;
+end
+Binder
+;
+ end
+Hello_World
+ ;
+=-=
+with
+  "shared.gpr";
+
+project
+  Hello_World
+extends
+all
+  "base_hello_world.gpr"
+is
+   for
+     Main
+   use
+     (
+      "hello_world.adb"
+     )
+   ;
+
+   for
+     Object_Dir
+   use
+     Project
+     '
+     Project_Dir
+       &
+       "obj"
+   ;
+
+   package
+     Builder
+   renames
+     Shared
+     .
+     Builder
+   ;
+
+   package
+     Compiler
+   is
+      for
+        Default_Switches
+          (
+           "Ada"
+          )
+      use
+        (
+         "-g"
+        )
+      ;
+   end
+     Compiler
+   ;
+
+   package
+     Binder
+   extends
+     Shared
+     .
+     Binder
+   is
+      for
+        Default_Switches
+          (
+           "Ada"
+          )
+      use
+        Binder
+        '
+        Default_Switches
+          (
+           "Ada"
+          )
+          &
+          (
+           "-E"
+          )
+      ;
+   end
+     Binder
+   ;
+end
+  Hello_World
+;
+=-=-=
+
+Name: Qualified (Broken)
+
+=-=
+abstract
+project
+  Hello_World
+is
+   null;
+end
+  Hello_World
+;
+=-=-=
+
+Name: Qualified (Broken, Reindent)
+
+=-=
+ abstract
+ project
+Hello_World
+ is
+null;
+ end
+Hello_World
+ ;
+=-=
+abstract
+project
+  Hello_World
+is
+   null;
+end
+  Hello_World
+;
+=-=-=

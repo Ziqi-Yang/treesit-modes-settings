@@ -1,0 +1,92 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (indent-region (point-min) (point-max)))
+
+Name: Nominal
+
+=-=
+-- top-level comment
+
+with "a.gpr";
+
+-- before project
+
+project
+  -- before name
+  Hello_World
+-- before project is
+is
+   -- Inside project
+
+   type Build_Mode_Type is (-- before first string literal
+                            "Debug"
+                            -- before string literal separator
+                            ,
+                            -- between string literals
+                            "Release"
+                           -- after last string literal
+                           );
+   -- before variable declaration
+   Build_Mode : Build_Mode_Type :=
+     -- before call
+     external
+       (-- before first parameter
+        "BUILD_MODE"
+        -- before parameter separator
+        ,
+        -- between parameters
+        "Debug"
+       -- after last parameter
+       );
+
+   -- before case
+
+   case
+     -- before variable reference
+     Build_Mode
+   -- before case is
+   is
+      -- before when 1
+      when "Debug" =>
+         -- inside when 1a
+         null;
+         -- inside when 1b
+         null;
+
+      -- before when 2
+      when "Release" =>
+         -- inside when 2a
+         null;
+         -- inside when 2b
+         null;
+
+      -- after when
+   end case
+   -- before semicolon
+   ;
+
+   -- before package
+
+   package
+     -- before name
+     Compiler
+   -- before package is
+   is
+      -- Inside package
+   end
+     -- before endname
+     Compiler
+   -- before semicolon
+   ;
+
+   -- After packages
+end
+  -- before endname
+  Hello_World
+-- before semicolon
+;
+
+-- after project
+=-=-=

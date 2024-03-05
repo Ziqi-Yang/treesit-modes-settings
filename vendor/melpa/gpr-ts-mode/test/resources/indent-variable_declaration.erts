@@ -1,0 +1,117 @@
+Code:
+  (lambda ()
+    (gpr-ts-mode)
+    (setq-local indent-tabs-mode nil)
+    (indent-region (point-min) (point-max)))
+
+Name: variable_declaration
+
+=-=
+abstract project Shared is
+   type Build_Type is ("Debug", "Release");
+   Build : Build_Type := external ("BUILD", "Release");
+
+   Options := ();
+
+   case Build is
+      when "Debug"   => Options := ("-g", "-O0");
+      when "Release" => Options := ("-02");
+   end case;
+end Shared;
+=-=-=
+
+Name: variable_declaration (Reindent)
+
+=-=
+abstract project Shared is
+   type Build_Type is ("Debug", "Release");
+Build : Build_Type := external ("BUILD", "Release");
+
+Options := ();
+
+   case Build is
+      when "Debug"   => Options := ("-g", "-O0");
+      when "Release" => Options := ("-02");
+   end case;
+end Shared;
+=-=
+abstract project Shared is
+   type Build_Type is ("Debug", "Release");
+   Build : Build_Type := external ("BUILD", "Release");
+
+   Options := ();
+
+   case Build is
+      when "Debug"   => Options := ("-g", "-O0");
+      when "Release" => Options := ("-02");
+   end case;
+end Shared;
+=-=-=
+
+Name: variable_declaration (Broken)
+
+=-=
+abstract project Shared is
+   type Build_Type is ("Debug", "Release");
+   Build
+     :
+     Build_Type
+     :=
+     external ("BUILD", "Release")
+   ;
+
+   Options
+     :=
+     ()
+   ;
+
+   case Build is
+      when "Debug"   => Options := ("-g", "-O0");
+      when "Release" => Options := ("-02");
+   end case;
+end Shared;
+=-=-=
+
+Name: variable_declaration (Broken, Reindent)
+
+=-=
+abstract project Shared is
+   type Build_Type is ("Debug", "Release");
+Build
+:
+Build_Type
+:=
+external ("BUILD", "Release")
+;
+
+Options
+:=
+()
+;
+
+   case Build is
+      when "Debug"   => Options := ("-g", "-O0");
+      when "Release" => Options := ("-02");
+   end case;
+end Shared;
+=-=
+abstract project Shared is
+   type Build_Type is ("Debug", "Release");
+   Build
+     :
+     Build_Type
+     :=
+     external ("BUILD", "Release")
+   ;
+
+   Options
+     :=
+     ()
+   ;
+
+   case Build is
+      when "Debug"   => Options := ("-g", "-O0");
+      when "Release" => Options := ("-02");
+   end case;
+end Shared;
+=-=-=

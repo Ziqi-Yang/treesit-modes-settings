@@ -1,0 +1,32 @@
+[[https://github.com/crmsnbleyd/uiua-mode/blob/main/LICENSE][file:https://img.shields.io/badge/license-GPL_3-green.svg]]
+[[https://melpa.org/#/uiua-ts-mode][file:https://melpa.org/packages/uiua-ts-mode-badge.svg]]
+[[https://github.com/crmsnbleyd/uiua-ts-mode/actions/workflows/ci.yml][file:https://github.com/crmsnbleyd/uiua-ts-mode/actions/workflows/ci.yml/badge.svg]]
+
+* uiua-ts-mode
+
+This is a treesitter-powered emacs mode for [[https://www.uiua.org][Uiua]], an array language.
+
+Much like the language itself, this mode is currently in progress.
+
+Please report any divergence from the major/minor releases of uiua
+as Github issues. They are considered bugs.
+
+** Setup
+
+This mode builds on [[https://github.com/crmsnbleyd/uiua-mode][uiua-mode]], which you can use if you have an older
+Emacs version.
+#+begin_src emacs-lisp
+  (use-package uiua-ts-mode
+    :mode "\\.ua\\'"
+    :ensure t)  ; or :straight t if using straight.el
+#+end_src
+Upon loading a .ua file, emacs will complain about not finding the grammar.
+Simply type ~M-x treesit-install-language-grammar~ then ~uiua~ to install it.
+
+** Screenshots
+Syntax highlighting of various uiua elements, in [[https://github.com/crmsnbleyd/flexoki-emacs-theme][flexoki-theme]].
+#+caption: Showing various glyphs with syntax highlighting
+[[https://github.com/crmsnbleyd/uiua-mode/blob/main/assets/uiua-example.png]]
+
+** Contributors
+This mode currently uses a grammar by [[https://github.com/shnarazk/tree-sitter-uiua][@shnarazk]].
