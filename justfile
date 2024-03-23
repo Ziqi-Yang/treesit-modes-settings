@@ -14,4 +14,12 @@ melpa-repo-git-clone:
     - fd "\-ts\-mode" {{MELPA_RECIPE_DIR}} | xargs -I '{}' basename '{}' | xargs -I '{}' ./scripts/melpa_repo_clone.sh {{MELPA_DIR}} '{}' | xargs -I '{}' sh -c 'cd ./vendor/melpa/ && git clone {}'
     mv ./vendor/melpa/emacs-kotlin-ts-mode ./vendor/melpa/kotlin-ts-mode
 
+# list major modes
+list-major-modes:
+    @# Emacs Master
+    @ls -1 ./vendor/emacs-master/
+    @# Melpa
+    @fd "\-ts\-mode" {{MELPA_RECIPE_DIR}} | xargs -I '{}' basename '{}'
+    
+
 
